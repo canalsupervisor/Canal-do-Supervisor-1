@@ -52,7 +52,6 @@
         /* =========================================
            TELA DE LOGIN
            ========================================= */
-        /* TELA DE LOGIN SIMPLIFICADA */
         #login-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, var(--senac-blue) 0%, var(--senac-dark-blue) 100%);
@@ -67,7 +66,6 @@
         .login-title { color: var(--senac-blue); margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; }
         .login-desc { color: #666; font-size: 14px; margin-bottom: 30px; line-height: 1.6; }
 
-        /* Campo de Senha */
         .password-container { position: relative; margin-bottom: 20px; text-align: left; }
         .password-label { font-size: 12px; font-weight: bold; color: var(--senac-blue); margin-bottom: 5px; display: block; text-transform: uppercase; }
         .password-input {
@@ -263,10 +261,7 @@
 
         /* MEDIA QUERIES */
         @media (max-width: 1400px) {
-            .timeline-art {
-                width: 200px;
-                max-width: 20vw;
-            }
+            .timeline-art { width: 200px; max-width: 20vw; }
             .timeline-art.art-1 { left: -250px; }
             .timeline-art.art-2 { right: -250px; }
             .timeline-art.art-3 { left: -250px; }
@@ -277,12 +272,9 @@
         }
 
         @media (max-width: 768px) {
-            /* Mobile Nav */
             .nav-links, .blackboard-btn, .logo-text, .logout-btn { display: none; }
-            .navbar-actions { display: none; } /* Esconde ações no mobile para usar o menu dropdown */
+            .navbar-actions { display: none; }
             .mobile-menu-btn { display: block; }
-
-            /* Mobile Timeline */
             .timeline-line::before { left: 30px; }
             .timeline-step { flex-direction: column; align-items: flex-start; margin-left: 0; }
             .empty-space { display: none; }
@@ -291,8 +283,6 @@
             .border-right-blue { border-left-color: var(--senac-blue); }
             .border-right-orange { border-left-color: var(--senac-orange); }
             .border-right-green { border-left-color: var(--senac-green); }
-
-            /* Mobile Welcome Card fix */
             .welcome-section { margin: 0; padding: 40px 10px; }
             .welcome-card::after { margin: 40px -20px -20px -20px; border-radius: 0 0 16px 16px; }
         }
@@ -300,30 +290,25 @@
 </head>
 <body id="main-body" class="locked">
 
-    <!-- LOGIN SCREEN (SENHA ÚNICA) -->
+    <!-- LOGIN SCREEN -->
     <div id="login-screen">
         <div class="login-box">
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Senac_logo.svg" alt="Senac Logo" style="height: 60px; margin: 0 auto 20px;">
             <h2 class="login-title">Acesso Restrito</h2>
             <p class="login-desc">Insira a senha padrão enviada no e-mail de convite para acessar o portal.</p>
-            
             <form onsubmit="event.preventDefault(); checkPassword();">
                 <div class="password-container">
                     <label class="password-label">Senha de Acesso</label>
                     <input type="password" id="password-input" class="password-input" placeholder="Digite a senha..." required>
                     <div id="error-msg" class="error-msg"><i class="fas fa-exclamation-circle"></i> Senha incorreta. Tente novamente.</div>
                 </div>
-
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-unlock-alt"></i> Acessar Portal
-                </button>
+                <button type="submit" class="btn-primary"><i class="fas fa-unlock-alt"></i> Acessar Portal</button>
             </form>
-            
             <p style="font-size: 12px; color: #999; margin-top: 30px;">Senac PR &bull; Departamento Regional</p>
         </div>
     </div>
 
-    <!-- CONTEÚDO (Oculto até o login) -->
+    <!-- CONTEÚDO -->
     <div id="site-content" class="hidden-section">
         <nav class="navbar">
             <div class="container nav-content">
@@ -334,23 +319,18 @@
                     </a>
                 </div>
                 <div class="nav-links">
-                    <!-- NOVA ABA: BOAS-VINDAS (ATIVADA POR PADRÃO) -->
                     <button onclick="switchTab('boas-vindas')" id="btn-boas-vindas" class="nav-btn active">Boas-Vindas</button>
-                    <!-- CRONOGRAMA (AGORA A SEGUNDA ABA, INATIVA POR PADRÃO) -->
                     <button onclick="switchTab('cronograma')" id="btn-cronograma" class="nav-btn">Cronograma</button>
                     <button onclick="switchTab('documentos')" id="btn-documentos" class="nav-btn">Documentos</button>
                     <button onclick="switchTab('equipe')" id="btn-equipe" class="nav-btn">Equipe</button>
                 </div>
-                
                 <div class="navbar-actions">
                     <button onclick="logout()" class="logout-btn">Sair</button>
                     <a href="https://senac.blackboard.com/" target="_blank" class="blackboard-btn">Acessar BlackBoard</a>
                 </div>
-                
                 <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
             </div>
             
-            <!-- Mobile Menu -->
             <div class="mobile-menu-dropdown" id="mobile-menu">
                 <button onclick="switchTab('boas-vindas')" class="mobile-link">Boas-Vindas</button>
                 <button onclick="switchTab('cronograma')" class="mobile-link">Cronograma</button>
@@ -369,7 +349,7 @@
 
         <main class="container" style="padding-top: 40px; padding-bottom: 40px; flex-grow: 1;">
             
-            <!-- NOVA ABA: BOAS-VINDAS (Ativa por padrão ao carregar) -->
+            <!-- ABAS -->
             <div id="view-boas-vindas" class="welcome-section">
                 <div class="welcome-card">
                     <h2 class="welcome-title">APRESENTAÇÃO</h2>
@@ -383,17 +363,13 @@
                 </div>
             </div>
 
-            <!-- CRONOGRAMA -->
             <div id="view-cronograma" class="timeline-container timeline-line hidden-section">
-                
-                <!-- Arte 1: Decreto N° 11.479 (Extremo esquerdo) -->
                 <div class="timeline-art art-1">
-                    <img src="image_b99941.png" alt="Decreto n° 11.479" title="Decreto n° 11.479 de 6 de Abril de 2023 sobre a profissionalização de jovens e adolescentes" onerror="this.style.display='none'">
+                    <img src="documentos/image_b99941.png" alt="Decreto n° 11.479" title="Decreto n° 11.479" onerror="this.style.display='none'">
                 </div>
                 
                 <div class="phase-badge"><span class="phase-blue"><span>Fase 1: Acesso & Planejamento</span></span></div>
                 
-
                 <div class="timeline-step">
                     <div class="step-content border-left-orange"><h3>Acesso ao BlackBoard</h3><p>Acesse o portal através do link oficial.</p></div>
                     <div class="step-number">1</div><div class="empty-space"></div>
@@ -421,9 +397,8 @@
 
                 <div class="phase-badge"><span class="phase-orange"><span>Fase 2: Logística</span></span></div>
                 
-                <!-- Arte 2: Lei n° 10.097 (Extremo direito) -->
                 <div class="timeline-art art-2">
-                    <img src="image_b9995d.png" alt="Lei n° 10.097" title="Lei n° 10.097 de 19 de Dezembro de 2000 que altera dispositivos da CLT" onerror="this.style.display='none'">
+                    <img src="documentos/image_b9995d.png" alt="Lei n° 10.097" title="Lei n° 10.097" onerror="this.style.display='none'">
                 </div>
                 
                 <div class="timeline-step">
@@ -458,9 +433,8 @@
                     <div class="step-content border-right-blue"><h3>Preenchimento</h3><p>Preencher cabeçalho do formulário.</p></div>
                 </div>
                 
-                <!-- Arte 3: Portaria MTE N° 3.872 (Extremo esquerdo) -->
                 <div class="timeline-art art-3">
-                    <img src="image_b9993e.png" alt="Portaria MTE N° 3.872" title="Portaria MTE n° 3.872 de 21 de Dezembro de 2023 sobre a aprendizagem profissional" onerror="this.style.display='none'">
+                    <img src="documentos/image_b9993e.png" alt="Portaria MTE N° 3.872" title="Portaria MTE N° 3.872" onerror="this.style.display='none'">
                 </div>
                 
                 <div class="timeline-step">
@@ -514,6 +488,7 @@
                             <div class="icon-box ib-blue"><i class="fas fa-book"></i></div>
                             <div class="doc-info">
                                 <h4>Manual simplificado</h4><p>Diretrizes gerais.</p>
+                                <!-- Nomes em minúsculo conforme imagem -->
                                 <a href="documentos/manual_simplificado.pdf" target="_blank" class="download-link">Baixar Arquivo <i class="fas fa-download" style="margin-left: 5px;"></i></a>
                             </div>
                         </div>
@@ -562,7 +537,8 @@
                         <div class="doc-header">
                             <div class="icon-box ib-orange"><i class="fas fa-file-word"></i></div>
                             <div class="doc-info">
-                                <h4>Formulário Supervisão 2025</h4><p>Obrigatório.</p>
+                                <h4>Formulário Supervisão 2025</h4><p>Obrigatório (Word).</p>
+                                <!-- CORREÇÃO: Usando a versão .docx (Word) e nome em minúsculo -->
                                 <a href="documentos/formulario_supervisao.docx" target="_blank" class="download-link text-orange-hover">Baixar Arquivo <i class="fas fa-download" style="margin-left: 5px;"></i></a>
                             </div>
                         </div>
@@ -573,6 +549,7 @@
                             <div class="icon-box ib-orange"><i class="fas fa-file-word"></i></div>
                             <div class="doc-info">
                                 <h4>ATA - Programa Aprendizagem</h4><p>Inclui manual.</p>
+                                <!-- CORREÇÃO: Descomentado e usando .docx -->
                                 <a href="documentos/ata_programa.docx" target="_blank" class="download-link text-orange-hover">Baixar Arquivo <i class="fas fa-download" style="margin-left: 5px;"></i></a>
                             </div>
                         </div>
@@ -590,7 +567,6 @@
                 </div>
             </div>
 
-            <!-- EQUIPE -->
             <div id="view-equipe" class="hidden-section">
                 <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 30px; margin-bottom: 40px;">
                     <h2 style="color: var(--senac-blue); border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 25px;">Equipe Pedagógica</h2>
@@ -696,28 +672,20 @@
         </footer>
     </div>
 
-    <!-- SCRIPT DE LÓGICA SIMPLIFICADA (SENHA ÚNICA) -->
     <script>
-        // Elementos da DOM
         const loginScreen = document.getElementById('login-screen');
         const siteContent = document.getElementById('site-content');
         const body = document.getElementById('main-body');
         const passwordInput = document.getElementById('password-input');
         const errorMsg = document.getElementById('error-msg');
-        
-        // SENHA PADRÃO DO SISTEMA
         const SENHA_CORRETA = "senac2026";
 
-        // FUNÇÃO: Verificar Senha
         function checkPassword() {
             const digitado = passwordInput.value;
-            
             if (digitado.toUpperCase() === SENHA_CORRETA.toUpperCase()) {
-                // Senha correta
-                localStorage.setItem('senac_auth', 'true'); // Salva login
+                localStorage.setItem('senac_auth', 'true');
                 showContent();
             } else {
-                // Senha incorreta
                 errorMsg.style.display = 'flex';
                 passwordInput.classList.add('error');
                 passwordInput.value = '';
@@ -725,18 +693,15 @@
             }
         }
         
-        // Remove erro ao digitar
         passwordInput.addEventListener('input', () => {
             errorMsg.style.display = 'none';
             passwordInput.classList.remove('error');
         });
 
-        // FUNÇÕES DE EXIBIÇÃO
         function showContent() {
             loginScreen.style.display = 'none';
             siteContent.classList.remove('hidden-section');
             body.classList.remove('locked');
-            // Garante que a aba de Boas-Vindas é carregada primeiro
             switchTab('boas-vindas'); 
         }
 
@@ -744,7 +709,7 @@
             loginScreen.style.display = 'flex';
             siteContent.classList.add('hidden-section');
             body.classList.add('locked');
-            localStorage.removeItem('senac_auth'); // Logout
+            localStorage.removeItem('senac_auth');
         }
         
         function logout() {
@@ -752,34 +717,24 @@
             location.reload();
         }
 
-        // LÓGICA PRINCIPAL (Ao carregar a página)
         document.addEventListener("DOMContentLoaded", function() {
-            // Verifica se o usuário já digitou a senha anteriormente
             const isLogged = localStorage.getItem('senac_auth');
-            
             if (isLogged === 'true') {
                 showContent();
             } else {
-                // Permanece na tela de login
                 passwordInput.focus();
             }
         });
 
-        // --- Funções Originais do Site (Abas e Menu) ---
         function switchTab(tabName) {
-            // Esconde todas as views
             document.getElementById('view-boas-vindas').classList.add('hidden-section');
             document.getElementById('view-cronograma').classList.add('hidden-section');
             document.getElementById('view-documentos').classList.add('hidden-section');
             document.getElementById('view-equipe').classList.add('hidden-section');
-            
-            // Remove o estado ativo de todos os botões
             document.getElementById('btn-boas-vindas').classList.remove('active');
             document.getElementById('btn-cronograma').classList.remove('active');
             document.getElementById('btn-documentos').classList.remove('active');
             document.getElementById('btn-equipe').classList.remove('active');
-
-            // Ativa a view e o botão correto
             document.getElementById('view-' + tabName).classList.remove('hidden-section');
             document.getElementById('btn-' + tabName).classList.add('active');
             
