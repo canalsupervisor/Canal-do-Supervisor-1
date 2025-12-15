@@ -52,7 +52,6 @@
         /* =========================================
            TELA DE LOGIN
            ========================================= */
-        /* TELA DE LOGIN SIMPLIFICADA */
         #login-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, var(--senac-blue) 0%, var(--senac-dark-blue) 100%);
@@ -67,7 +66,6 @@
         .login-title { color: var(--senac-blue); margin-bottom: 10px; font-size: 1.5rem; font-weight: bold; }
         .login-desc { color: #666; font-size: 14px; margin-bottom: 30px; line-height: 1.6; }
 
-        /* Campo de Senha */
         .password-container { position: relative; margin-bottom: 20px; text-align: left; }
         .password-label { font-size: 12px; font-weight: bold; color: var(--senac-blue); margin-bottom: 5px; display: block; text-transform: uppercase; }
         .password-input {
@@ -109,7 +107,6 @@
         .blackboard-btn:hover { background-color: var(--senac-dark-blue); }
         .logout-btn { color: #dc2626; font-weight: bold; font-size: 0.875rem; padding: 10px; border: 1px solid #fee2e2; border-radius: 6px; transition: 0.3s; }
         .logout-btn:hover { background-color: #fef2f2; }
-
 
         /* =========================================
            ESTILOS GERAIS
@@ -202,29 +199,124 @@
         }
         .link-btn:hover { background-color: #dbeafe; }
 
-        /* Estilos para as Imagens "Soltas" na Timeline (Arte) */
+        /* =========================================
+           ARTES "SOLTAS" (BANNERS) - AJUSTADOS
+           ========================================= */
         .timeline-art {
             position: absolute;
-            z-index: 5; 
+            z-index: 5;
             width: 250px; 
-            max-width: 30vw;
-            opacity: 0.95; 
-            transition: transform 0.3s, opacity 0.3s;
-            background: var(--white); 
-            border-radius: 12px;
-            padding: 5px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .timeline-art img {
-            width: 100%;
             height: auto;
+            min-height: 200px; /* Altura flexível */
+            background: var(--senac-blue);
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 25px 20px; /* Padding interno */
+            transition: transform 0.3s;
+            font-family: 'Roboto', 'Arial', sans-serif;
+            text-decoration: none !important;
+            cursor: pointer;
+            border-left: 6px solid var(--senac-orange); /* Borda laranja discreta em vez de faixa grossa */
         }
-        /* Posicionamento Ajustado para as EXTREMIDADES LATERAIS (Pixels Fixos) */
-        /* Ajustei as posições top para ficarem melhor distribuídas e left/right para não sobrepor */
-        .timeline-art.art-1 { top: 150px; left: -280px; transform: rotate(-5deg); }
-        .timeline-art.art-2 { top: 600px; right: -280px; left: auto; transform: rotate(5deg); }
-        .timeline-art.art-3 { top: 1100px; left: -280px; transform: rotate(-4deg); }
+        .timeline-art:hover { transform: scale(1.05) rotate(0deg) !important; z-index: 20; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+        
+        /* Conteúdo interno do banner */
+        .art-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Brasão (Mantido discreto no canto) */
+        .art-coat {
+            position: absolute;
+            bottom: -15px;
+            right: -10px;
+            width: 40px;
+            opacity: 0.3; /* Bem discreto para não brigar com texto */
+        }
+
+        .art-title {
+            font-weight: 900;
+            font-size: 1.1rem; /* Fonte reduzida conforme solicitado */
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            line-height: 1.2;
+            color: white;
+            text-align: left;
+        }
+        .art-subtitle {
+            font-weight: 700;
+            color: var(--senac-orange);
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            text-align: left;
+        }
+        .art-desc {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #e2e8f0;
+            font-weight: 300;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        
+        /* Posicionamento - Mantido */
+        .timeline-art.art-1 { top: 250px; left: -300px; transform: rotate(-7deg); }
+        .timeline-art.art-2 { top: 750px; right: -300px; left: auto; transform: rotate(10deg); }
+        .timeline-art.art-3 { top: 1300px; left: -300px; transform: rotate(-4deg); }
+
+        /* MODAL DE UPLOAD */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal-box {
+            background: white; padding: 40px 30px; border-radius: 12px;
+            width: 90%; max-width: 500px; position: relative;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .close-modal-btn {
+            position: absolute; top: 15px; right: 20px; font-size: 28px; color: #9ca3af;
+            line-height: 1; transition: 0.2s;
+        }
+        .close-modal-btn:hover { color: #374151; transform: scale(1.1); }
+
+        .warning-box {
+            background-color: #fff7ed; border-left: 4px solid #F68B1F;
+            padding: 15px; text-align: left; margin-bottom: 25px;
+            display: flex; gap: 15px; align-items: flex-start;
+            font-size: 0.95rem; color: #9a3412;
+            border-radius: 4px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #d1d5db; padding: 30px 20px; border-radius: 8px;
+            background: #f9fafb; margin-bottom: 20px;
+            transition: 0.2s;
+        }
+        .upload-area:hover { border-color: var(--senac-blue); background: #eff6ff; }
+
+        .region-select {
+            width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 6px;
+            font-size: 1rem; color: var(--text-color); margin-bottom: 15px;
+            outline: none; background-color: white; cursor: pointer;
+        }
+        .region-select:focus { border-color: var(--senac-blue); }
 
         /* --- DOCS & EQUIPE --- */
         .search-bar-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
@@ -262,29 +354,25 @@
         .mobile-menu-dropdown { display: none; background: #f9fafb; border-top: 1px solid #eee; }
         .mobile-link { display: block; padding: 12px 20px; color: var(--senac-blue); font-weight: 600; border-bottom: 1px solid #eee; width: 100%; text-align: left;}
 
-        /* MEDIA QUERIES */
         @media (max-width: 1400px) {
-            .timeline-art {
-                width: 200px;
-                max-width: 20vw;
-            }
-            .timeline-art.art-1 { left: -220px; }
-            .timeline-art.art-2 { right: -220px; }
-            .timeline-art.art-3 { left: -220px; }
+            .timeline-art { width: 220px; }
+            .timeline-art.art-1 { left: -250px; }
+            .timeline-art.art-2 { right: -250px; }
+            .timeline-art.art-3 { left: -250px; }
+            .art-title { font-size: 0.95rem; }
+            .art-subtitle { font-size: 0.8rem; }
+            .art-desc { font-size: 0.7rem; }
         }
 
-        @media (max-width: 1100px) {
-            /* Esconde as artes em telas menores para não sobrepor */
+        @media (max-width: 1000px) {
             .timeline-art { display: none; }
         }
 
         @media (max-width: 768px) {
-            /* Mobile Nav */
             .nav-links, .blackboard-btn, .logo-text, .logout-btn { display: none; }
-            .navbar-actions { display: none; } /* Esconde ações no mobile para usar o menu dropdown */
+            .navbar-actions { display: none; }
             .mobile-menu-btn { display: block; }
 
-            /* Mobile Timeline */
             .timeline-line::before { left: 30px; }
             .timeline-step { flex-direction: column; align-items: flex-start; margin-left: 0; }
             .empty-space { display: none; }
@@ -294,7 +382,6 @@
             .border-right-orange { border-left-color: var(--senac-orange); }
             .border-right-green { border-left-color: var(--senac-green); }
 
-            /* Mobile Welcome Card fix */
             .welcome-section { margin: 0; padding: 40px 10px; }
             .welcome-card::after { margin: 40px -20px -20px -20px; border-radius: 0 0 16px 16px; }
         }
@@ -302,30 +389,25 @@
 </head>
 <body id="main-body" class="locked">
 
-    <!-- LOGIN SCREEN (SENHA ÚNICA) -->
+    <!-- LOGIN SCREEN -->
     <div id="login-screen">
         <div class="login-box">
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Senac_logo.svg" alt="Senac Logo" style="height: 60px; margin: 0 auto 20px;">
             <h2 class="login-title">Acesso Restrito</h2>
             <p class="login-desc">Insira a senha padrão enviada no e-mail de convite para acessar o portal.</p>
-            
             <form onsubmit="event.preventDefault(); checkPassword();">
                 <div class="password-container">
                     <label class="password-label">Senha de Acesso</label>
                     <input type="password" id="password-input" class="password-input" placeholder="Digite a senha..." required>
                     <div id="error-msg" class="error-msg"><i class="fas fa-exclamation-circle"></i> Senha incorreta. Tente novamente.</div>
                 </div>
-
-                <button type="submit" class="btn-primary">
-                    <i class="fas fa-unlock-alt"></i> Acessar Portal
-                </button>
+                <button type="submit" class="btn-primary"><i class="fas fa-unlock-alt"></i> Acessar Portal</button>
             </form>
-            
             <p style="font-size: 12px; color: #999; margin-top: 30px;">Senac PR &bull; Departamento Regional</p>
         </div>
     </div>
 
-    <!-- CONTEÚDO (Oculto até o login) -->
+    <!-- CONTEÚDO DO SITE -->
     <div id="site-content" class="hidden-section">
         <nav class="navbar">
             <div class="container nav-content">
@@ -336,26 +418,25 @@
                     </a>
                 </div>
                 <div class="nav-links">
-                    <!-- NOVA ABA: BOAS-VINDAS (ATIVADA POR PADRÃO) -->
                     <button onclick="switchTab('boas-vindas')" id="btn-boas-vindas" class="nav-btn active">Boas-Vindas</button>
-                    <!-- CRONOGRAMA (AGORA A SEGUNDA ABA, INATIVA POR PADRÃO) -->
-                    <button onclick="switchTab('cronograma')" id="btn-cronograma" class="nav-btn">Cronograma</button>
+                    <!-- REORDENADO: DADOS ANTES DE FLUXOGRAMA -->
+                    <button onclick="switchTab('dados')" id="btn-dados" class="nav-btn">Dados</button>
+                    <button onclick="switchTab('fluxograma')" id="btn-fluxograma" class="nav-btn">Fluxograma</button>
                     <button onclick="switchTab('documentos')" id="btn-documentos" class="nav-btn">Documentos</button>
                     <button onclick="switchTab('equipe')" id="btn-equipe" class="nav-btn">Equipe</button>
                 </div>
-                
                 <div class="navbar-actions">
                     <button onclick="logout()" class="logout-btn">Sair</button>
                     <a href="https://senac.blackboard.com/" target="_blank" class="blackboard-btn">Acessar BlackBoard</a>
                 </div>
-                
                 <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
             </div>
             
-            <!-- Mobile Menu -->
             <div class="mobile-menu-dropdown" id="mobile-menu">
                 <button onclick="switchTab('boas-vindas')" class="mobile-link">Boas-Vindas</button>
-                <button onclick="switchTab('cronograma')" class="mobile-link">Cronograma</button>
+                <!-- REORDENADO: DADOS ANTES DE FLUXOGRAMA -->
+                <button onclick="switchTab('dados')" class="mobile-link">Dados</button>
+                <button onclick="switchTab('fluxograma')" class="mobile-link">Fluxograma</button>
                 <button onclick="switchTab('documentos')" class="mobile-link">Documentos</button>
                 <button onclick="switchTab('equipe')" class="mobile-link">Equipe</button>
                 <button onclick="logout()" class="mobile-link" style="color: red;">Sair do Sistema</button>
@@ -371,7 +452,7 @@
 
         <main class="container" style="padding-top: 40px; padding-bottom: 40px; flex-grow: 1;">
             
-            <!-- NOVA ABA: BOAS-VINDAS (Ativa por padrão ao carregar) -->
+            <!-- ABA: BOAS-VINDAS -->
             <div id="view-boas-vindas" class="welcome-section">
                 <div class="welcome-card">
                     <h2 class="welcome-title">APRESENTAÇÃO</h2>
@@ -385,21 +466,21 @@
                 </div>
             </div>
 
-            <!-- CRONOGRAMA -->
-            <div id="view-cronograma" class="timeline-container timeline-line hidden-section">
+            <!-- ABA: FLUXOGRAMA -->
+            <div id="view-fluxograma" class="timeline-container timeline-line hidden-section">
                 
-                <!-- Arte 1: Decreto N° 11.479 (Extremo esquerdo) -->
-                <div class="timeline-art art-1">
-                    <img src="image_b99941.png" alt="Decreto n° 11.479" title="Decreto n° 11.479 de 6 de Abril de 2023 sobre a profissionalização de jovens e adolescentes">
-                </div>
-
-                <!-- Arte 2: Portaria MTE N° 3.872 (Extremo direito) -->
-                <div class="timeline-art art-2">
-                    <img src="image_b9993e.png" alt="Portaria MTE N° 3.872" title="Portaria MTE n° 3.872 de 21 de Dezembro de 2023 sobre a aprendizagem profissional">
-                </div>
+                <!-- Arte 1: Decreto N° 11.479 (Link Correto) -->
+                <a href="https://www.planalto.gov.br/ccivil_03/_Ato2023-2026/2023/Decreto/D11479.htm" target="_blank" class="timeline-art art-1">
+                    <div class="art-content">
+                        <div class="art-title">DECRETO Nº 11.479,</div>
+                        <div class="art-subtitle">DE 6 DE ABRIL DE 2023</div>
+                        <div class="art-desc">Altera o Decreto nº 9.579, de 22 de novembro de 2018, para dispor sobre o direito à profissionalização de adolescentes e jovens por meio de programas de aprendizagem profissional.</div>
+                    </div>
+                    <!-- Brasão oficial discreto -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Coat_of_arms_of_Brazil.svg" class="art-coat" alt="Brasão">
+                </a>
                 
                 <div class="phase-badge"><span class="phase-blue"><span>Fase 1: Acesso & Planejamento</span></span></div>
-                
 
                 <div class="timeline-step">
                     <div class="step-content border-left-orange"><h3>Acesso ao BlackBoard</h3><p>Acesse o portal através do link oficial.</p></div>
@@ -428,12 +509,15 @@
 
                 <div class="phase-badge"><span class="phase-orange"><span>Fase 2: Logística</span></span></div>
                 
-                <!-- Arte 2: Lei n° 10.097 (Extremo direito - reposicionada como art-2 neste contexto) -->
-                 <!-- Nota: Reposicionando Lei 10.097 mais abaixo como uma terceira arte se necessário, mas o usuário pediu especificamente as duas primeiras -->
-                 <!-- Para manter consistência com o pedido "dentre os blocos já construidos", vou manter a Lei 10.097 como art-3 -->
-                <div class="timeline-art art-3">
-                    <img src="image_b9995d.png" alt="Lei n° 10.097" title="Lei n° 10.097 de 19 de Dezembro de 2000 que altera dispositivos da CLT">
-                </div>
+                <!-- Arte 2: Lei n° 10.097 (Link Correto) -->
+                <a href="https://www.planalto.gov.br/ccivil_03/LEIS/L10097.htm" target="_blank" class="timeline-art art-2">
+                    <div class="art-content">
+                        <div class="art-title">Lei nº 10.097</div>
+                        <div class="art-subtitle">de 19 de dezembro de 2000</div>
+                        <div class="art-desc">Altera dispositivos da Consolidação das Leis do Trabalho – CLT, aprovada pelo Decreto-Lei nº 5.452, de 1º de maio de 1943.</div>
+                    </div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Coat_of_arms_of_Brazil.svg" class="art-coat" alt="Brasão">
+                </a>
                 
                 <div class="timeline-step">
                     <div class="step-content border-left-blue"><h3>Montar Logística</h3><p>Montar logística na aba de planejamento.</p></div>
@@ -467,6 +551,16 @@
                     <div class="step-content border-right-blue"><h3>Preenchimento</h3><p>Preencher cabeçalho do formulário.</p></div>
                 </div>
                 
+                <!-- Arte 3: Portaria MTE N° 3.872 (Link Correto) -->
+                <a href="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/aprendizagem-profissional" target="_blank" class="timeline-art art-3">
+                    <div class="art-content">
+                        <div class="art-title" style="font-size: 1.2rem;">PORTARIA MTE Nº 3.872,</div>
+                        <div class="art-subtitle" style="font-size: 0.9rem;">DE 21 DE DEZEMBRO DE 2023</div>
+                        <div class="art-desc">Dispõe sobre a aprendizagem profissional, o Cadastro Nacional de Aprendizagem Profissional e o Catálogo Nacional da Aprendizagem Profissional.</div>
+                    </div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Coat_of_arms_of_Brazil.svg" class="art-coat" alt="Brasão">
+                </a>
+                
                 <div class="timeline-step">
                     <div class="step-content border-left-orange"><h3>Relatório de Desempenho</h3><p>Consultar relatório antes da visita.</p></div>
                     <div class="step-number">13</div><div class="empty-space"></div>
@@ -478,7 +572,13 @@
 
                 <div class="phase-badge"><span class="phase-green"><span>Fase 4: Finalização</span></span></div>
                 <div class="timeline-step">
-                    <div class="step-content border-left-green"><h3>Digitalizar</h3><p>Digitalizar (Turma + Nome). Enviar no AVA.</p></div>
+                    <div class="step-content border-left-green">
+                        <h3>Digitalizar + Enviar</h3>
+                        <p>Digitalizar (Turma + Nome). Enviar no AVA.</p>
+                        <button onclick="openUploadModal()" class="link-btn" style="color: var(--senac-green); background-color: #dcfce7; margin-top: 10px; width: 100%; justify-content: center;">
+                            <i class="fas fa-upload" style="margin-right: 5px;"></i> Enviar Arquivos
+                        </button>
+                    </div>
                     <div class="step-number">15</div><div class="empty-space"></div>
                 </div>
                 <div class="timeline-step">
@@ -495,7 +595,29 @@
                 </div>
             </div>
 
-            <!-- DOCUMENTOS -->
+            <!-- ABA: DADOS (DASHBOARD) - ATUALIZADA COM GRÁFICO MAIOR E SEM MENUS INFERIORES -->
+            <div id="view-dados" class="hidden-section">
+                <div class="welcome-card" style="text-align: center;">
+                    <i class="fas fa-chart-pie" style="font-size: 4rem; color: var(--senac-blue); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--senac-dark-blue); margin-bottom: 10px;">Painel de Dados</h2>
+                    <p style="color: #666; margin-bottom: 30px;">Total de Jovens Ativos por Região</p>
+                    
+                    <!-- ÁREA DE INCORPORAÇÃO (IFRAME) -->
+                    <div style="display: flex; justify-content: center; overflow: hidden; background: #fafafa; border-radius: 8px; border: 1px solid #eee; padding: 20px;">
+                        <iframe 
+                            width="950" 
+                            height="650" 
+                            frameborder="0" 
+                            scrolling="no" 
+                            style="max-width: 100%;" 
+                            src="https://senacpr-my.sharepoint.com/personal/michel_farias_pr_senac_br/_layouts/15/Doc.aspx?sourcedoc={8f2f76bc-bce9-4d13-9a15-4e652295c5d4}&action=embedview&wdAllowInteractivity=False&Item=Gr%C3%A1fico%201&wdHideSheetTabs=True">
+                        </iframe>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ABA: DOCUMENTOS -->
             <div id="view-documentos" class="hidden-section">
                 <div class="search-bar-container">
                     <h2 style="color: var(--senac-blue); font-size: 1.5rem; font-weight: bold;">Central de Documentos</h2>
@@ -503,7 +625,7 @@
                         <input type="text" id="doc-search" onkeyup="filterDocuments()" class="search-input" placeholder="Buscar arquivo...">
                     </div>
                 </div>
-
+                
                 <div class="doc-section-title"><i class="fas fa-book-reader" style="color: var(--senac-blue); margin-right: 10px;"></i> Guias e Manuais</div>
                 <div class="grid-docs">
                     <div class="doc-card">
@@ -587,7 +709,7 @@
                 </div>
             </div>
 
-            <!-- EQUIPE -->
+            <!-- ABA: EQUIPE -->
             <div id="view-equipe" class="hidden-section">
                 <div style="background: white; border: 1px solid #ddd; border-radius: 8px; padding: 30px; margin-bottom: 40px;">
                     <h2 style="color: var(--senac-blue); border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 25px;">Equipe Pedagógica</h2>
@@ -605,7 +727,7 @@
                         <div class="member-card">
                             <div class="avatar">B</div>
                             <div class="member-info">
-                                <h3>Bianca</h3><div class="member-role">Analista Pedagógica</div>
+                                <h3>Bianca Aresta</h3><div class="member-role">Analista Pedagógica</div>
                                 <div class="member-contact">
                                     <a href="mailto:bianca.aresta@pr.senac.br"><i class="fas fa-envelope"></i> bianca.aresta@pr.senac.br</a>
                                     <a href="https://wa.me/554133145875" target="_blank"><i class="fab fa-whatsapp" style="color: #25D366;"></i> (41) 3314-5875</a>
@@ -615,7 +737,7 @@
                         <div class="member-card">
                             <div class="avatar">B</div>
                             <div class="member-info">
-                                <h3>Bruna</h3><div class="member-role">Analista Pedagógica</div>
+                                <h3>Bruna Cunha</h3><div class="member-role">Analista Pedagógica</div>
                                 <div class="member-contact">
                                     <a href="mailto:bruna.cunha@pr.senac.br"><i class="fas fa-envelope"></i> bruna.cunha@pr.senac.br</a>
                                     <a href="https://wa.me/554133145816" target="_blank"><i class="fab fa-whatsapp" style="color: #25D366;"></i> (41) 3314-5816</a>
@@ -625,7 +747,7 @@
                         <div class="member-card">
                             <div class="avatar">M</div>
                             <div class="member-info">
-                                <h3>Mariana</h3><div class="member-role">Analista Pedagógica</div>
+                                <h3>Mariana Mello</h3><div class="member-role">Analista Pedagógica</div>
                                 <div class="member-contact">
                                     <a href="mailto:mariana.mello@pr.senac.br"><i class="fas fa-envelope"></i> mariana.mello@pr.senac.br</a>
                                     <a href="https://wa.me/554133145858" target="_blank"><i class="fab fa-whatsapp" style="color: #25D366;"></i> (41) 3314-5858</a>
@@ -641,7 +763,7 @@
                         <div class="member-card">
                             <div class="avatar avatar-gray">C</div>
                             <div class="member-info">
-                                <h3>Cristina</h3><div class="member-role" style="color: #6b7280;">Assistente Administrativo</div>
+                                <h3>Cristina Maciel</h3><div class="member-role" style="color: #6b7280;">Assistente Administrativo</div>
                                 <div class="member-contact">
                                     <a href="mailto:cristina.maciel@pr.senac.br"><i class="fas fa-envelope"></i> cristina.maciel@pr.senac.br</a>
                                     <a href="https://wa.me/554133145840" target="_blank"><i class="fab fa-whatsapp" style="color: #25D366;"></i> (41) 3314-5840</a>
@@ -651,7 +773,7 @@
                         <div class="member-card">
                             <div class="avatar avatar-gray">L</div>
                             <div class="member-info">
-                                <h3>Leo</h3><div class="member-role" style="color: #6b7280;">Assistente Administrativo</div>
+                                <h3>Leo Santos</h3><div class="member-role" style="color: #6b7280;">Assistente Administrativo</div>
                                 <div class="member-contact">
                                     <a href="mailto:leo.santos@pr.senac.br"><i class="fas fa-envelope"></i> leo.santos@pr.senac.br</a>
                                     <a href="https://wa.me/554133145818" target="_blank"><i class="fab fa-whatsapp" style="color: #25D366;"></i> (41) 3314-5818</a>
@@ -681,7 +803,7 @@
                     <h4>Links Rápidos</h4>
                     <ul>
                         <li><a href="mailto:cristina.maciel@pr.senac.br">Canal do Supervisor <i class="fas fa-envelope"></i></a></li>
-                        <li><a href="https://wa.me/554133145840" target="_blank">Suporte ao Supervisor <i class="fab fa-whatsapp"></i></a></li>
+                        <li><a href="https://wa.me/554133145817" target="_blank">Suporte ao Supervisor <i class="fab fa-whatsapp"></i></a></li>
                         <li><a href="https://intranet.pr.senac.br/ar/acm/index.asp?" target="_blank">Portal do Colaborador</a></li>
                     </ul>
                 </div>
@@ -693,109 +815,97 @@
         </footer>
     </div>
 
-    <!-- SCRIPT DE LÓGICA SIMPLIFICADA (SENHA ÚNICA) -->
+    <!-- JANELA/MODAL DE UPLOAD -->
+    <div id="upload-modal" class="modal-overlay hidden-section">
+        <div class="modal-box">
+            <button class="close-modal-btn" onclick="closeUploadModal()">&times;</button>
+            <h2 style="color: var(--senac-blue); margin-bottom: 20px; font-weight: 900;">Enviar Arquivos</h2>
+            
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle" style="font-size: 1.5rem; margin-top: 2px;"></i>
+                <p>Lembre-se de renomear o arquivo com o <strong>número da turma + nome completo do jovem</strong>, para facilitar a identificação e arquivamento do documento.</p>
+            </div>
+            
+            <label for="region-select" style="display: block; text-align: left; font-weight: bold; color: var(--senac-blue); margin-bottom: 5px;">Selecione sua Região:</label>
+            <select id="region-select" class="region-select">
+                <option value="">-- Escolha uma cidade --</option>
+                <option value="campo_mourao">Campo Mourão</option>
+                <option value="francisco_beltrao">Francisco Beltrão</option>
+                <option value="guarapuava">Guarapuava</option>
+                <option value="umuarama">Umuarama</option>
+                <!-- Adicione mais opções conforme suas pastas -->
+            </select>
+
+            <div class="upload-area">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #cbd5e1; margin-bottom: 10px;"></i>
+                <!-- Instrução adicional sobre o link externo -->
+                <p style="margin-bottom: 5px; color: #374151; font-weight: bold;">Upload Seguro</p>
+                <p style="margin-bottom: 15px; font-size: 0.9rem; color: #6b7280;">
+                    Ao clicar no botão abaixo, você será redirecionado para a pasta segura da sua região.
+                </p>
+            </div>
+
+            <button class="btn-primary" onclick="openUploadForm()" style="margin-top: 10px;">
+                <i class="fas fa-external-link-alt"></i> Acessar Pasta de Envio
+            </button>
+        </div>
+    </div>
+
     <script>
-        // Elementos da DOM
         const loginScreen = document.getElementById('login-screen');
         const siteContent = document.getElementById('site-content');
         const body = document.getElementById('main-body');
         const passwordInput = document.getElementById('password-input');
         const errorMsg = document.getElementById('error-msg');
-        
-        // SENHA PADRÃO DO SISTEMA
         const SENHA_CORRETA = "senac2026";
 
-        // FUNÇÃO: Verificar Senha
         function checkPassword() {
-            const digitado = passwordInput.value;
-            
-            if (digitado.toUpperCase() === SENHA_CORRETA.toUpperCase()) {
-                // Senha correta
-                localStorage.setItem('senac_auth', 'true'); // Salva login
+            if (passwordInput.value.toUpperCase() === SENHA_CORRETA.toUpperCase()) {
+                localStorage.setItem('senac_auth', 'true');
                 showContent();
             } else {
-                // Senha incorreta
                 errorMsg.style.display = 'flex';
                 passwordInput.classList.add('error');
                 passwordInput.value = '';
                 passwordInput.focus();
             }
         }
-        
-        // Remove erro ao digitar
-        passwordInput.addEventListener('input', () => {
-            errorMsg.style.display = 'none';
-            passwordInput.classList.remove('error');
-        });
+        passwordInput.addEventListener('input', () => { errorMsg.style.display = 'none'; passwordInput.classList.remove('error'); });
 
-        // FUNÇÕES DE EXIBIÇÃO
         function showContent() {
             loginScreen.style.display = 'none';
             siteContent.classList.remove('hidden-section');
             body.classList.remove('locked');
-            // Garante que a aba de Boas-Vindas é carregada primeiro
-            switchTab('boas-vindas'); 
+            switchTab('boas-vindas');
         }
 
-        function hideContent() {
-            loginScreen.style.display = 'flex';
-            siteContent.classList.add('hidden-section');
-            body.classList.add('locked');
-            localStorage.removeItem('senac_auth'); // Logout
-        }
-        
         function logout() {
-            hideContent();
+            localStorage.removeItem('senac_auth');
             location.reload();
         }
 
-        // LÓGICA PRINCIPAL (Ao carregar a página)
         document.addEventListener("DOMContentLoaded", function() {
-            // Verifica se o usuário já digitou a senha anteriormente
-            const isLogged = localStorage.getItem('senac_auth');
-            
-            if (isLogged === 'true') {
-                showContent();
-            } else {
-                // Permanece na tela de login
-                passwordInput.focus();
-            }
+            if (localStorage.getItem('senac_auth') === 'true') { showContent(); }
+            else { passwordInput.focus(); }
         });
 
-        // --- Funções Originais do Site (Abas e Menu) ---
         function switchTab(tabName) {
-            // Esconde todas as views
-            document.getElementById('view-boas-vindas').classList.add('hidden-section');
-            document.getElementById('view-cronograma').classList.add('hidden-section');
-            document.getElementById('view-documentos').classList.add('hidden-section');
-            document.getElementById('view-equipe').classList.add('hidden-section');
-            
-            // Remove o estado ativo de todos os botões
-            document.getElementById('btn-boas-vindas').classList.remove('active');
-            document.getElementById('btn-cronograma').classList.remove('active');
-            document.getElementById('btn-documentos').classList.remove('active');
-            document.getElementById('btn-equipe').classList.remove('active');
-
-            // Ativa a view e o botão correto
+            ['boas-vindas', 'fluxograma', 'dados', 'documentos', 'equipe'].forEach(tab => {
+                document.getElementById('view-' + tab).classList.add('hidden-section');
+                document.getElementById('btn-' + tab).classList.remove('active');
+            });
             document.getElementById('view-' + tabName).classList.remove('hidden-section');
             document.getElementById('btn-' + tabName).classList.add('active');
             
-            const title = document.getElementById('hero-title');
-            const sub = document.getElementById('hero-subtitle');
-            
-            if(tabName === 'boas-vindas') {
-                title.innerText = "Bem-Vindo(a) Supervisor(a)!";
-                sub.innerText = "Portal de apoio para a supervisão da Prática Profissional do Senac PR.";
-            } else if(tabName === 'cronograma') {
-                title.innerText = "Fluxo de Monitoramento";
-                sub.innerText = "Guia oficial para supervisão de práticas profissionais - Senac PR";
-            } else if (tabName === 'documentos') {
-                title.innerText = "Central de Documentos";
-                sub.innerText = "Baixe todos os arquivos necessários.";
-            } else {
-                title.innerText = "Equipe Técnica";
-                sub.innerText = "Contatos e responsáveis pedagógicos.";
-            }
+            const titles = {
+                'boas-vindas': ["Bem-Vindo(a) Supervisor(a)!", "Portal de apoio para a supervisão da Prática Profissional do Senac PR."],
+                'fluxograma': ["Fluxo de Monitoramento", "Guia oficial para supervisão de práticas profissionais - Senac PR"],
+                'dados': ["Painel de Dados", "Monitoramento em tempo real dos indicadores de aprendizagem."],
+                'documentos': ["Central de Documentos", "Baixe todos os arquivos necessários."],
+                'equipe': ["Equipe Técnica", "Contatos e responsáveis pedagógicos."]
+            };
+            document.getElementById('hero-title').innerText = titles[tabName][0];
+            document.getElementById('hero-subtitle').innerText = titles[tabName][1];
             document.getElementById('mobile-menu').style.display = 'none';
         }
 
@@ -805,17 +915,32 @@
         }
 
         function filterDocuments() {
-            let input = document.getElementById('doc-search');
-            let filter = input.value.toUpperCase();
+            let filter = document.getElementById('doc-search').value.toUpperCase();
             let cards = document.getElementsByClassName('doc-card');
             for (let i = 0; i < cards.length; i++) {
                 let h4 = cards[i].getElementsByTagName("h4")[0];
                 if (h4) {
-                    let txtValue = h4.textContent || h4.innerText;
-                    cards[i].style.display = (txtValue.toUpperCase().indexOf(filter) > -1) ? "" : "none";
+                    cards[i].style.display = (h4.textContent.toUpperCase().indexOf(filter) > -1) ? "" : "none";
                 }
             }
         }
+
+        function openUploadModal() { document.getElementById('upload-modal').classList.remove('hidden-section'); }
+        function closeUploadModal() { document.getElementById('upload-modal').classList.add('hidden-section'); }
+
+        function openUploadForm() {
+            const linksPorRegiao = {
+                'campo_mourao': 'https://senacpr-my.sharepoint.com/:f:/g/personal/tutoria_aprendizagem_pr_senac_br/IgCtlUZaS1ViSqqd-LfwfAhUASl6_V1-GxHrAnWGuUj2BXo',
+                'francisco_beltrao': 'https://senacpr-my.sharepoint.com/:f:/g/personal/tutoria_aprendizagem_pr_senac_br/IgA7auw4MZNYSbw2kUanBtuHAav-cBusC4wCelholjwhFKA',
+                'guarapuava': 'https://senacpr-my.sharepoint.com/:f:/g/personal/tutoria_aprendizagem_pr_senac_br/IgB1-VVBjcpATae_CCqK4Bu9AdXZ09snZQ9uL2ZQKhnK_kw',
+                'umuarama': 'https://senacpr-my.sharepoint.com/:f:/g/personal/tutoria_aprendizagem_pr_senac_br/IgCbQHxgU9rESphEFu8dbcXLAUB3tXkeaiwl972MD1LNgac'
+            };
+            const regiao = document.getElementById('region-select').value;
+            if (regiao && linksPorRegiao[regiao]) { window.open(linksPorRegiao[regiao], '_blank'); closeUploadModal(); }
+            else { alert("Selecione uma região válida."); }
+        }
+        
+        document.getElementById('upload-modal').addEventListener('click', function(e) { if (e.target === this) closeUploadModal(); });
     </script>
 </body>
 </html>
